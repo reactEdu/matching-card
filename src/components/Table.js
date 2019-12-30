@@ -1,15 +1,15 @@
 import React from 'react';
 import Tr from './Tr';
 
-const Table = ({ dispatch, tableData, clickedValue, passData }) => {
+const Table = ({ isEnd, dispatch, tableData, clickedValue, passData }) => {
 	return (
-		<table>
-			<tbody>
+		<div className="flex_table">
+			<div className="tbody">
 				{Array(tableData.length).fill().map((tr, i) => {
-					return <Tr dispatch={dispatch} passData={passData} clickedValue={clickedValue} key={"r"+i} rowIndex={i} rowData={tableData[i]} />	
+					return <Tr isEnd={isEnd} dispatch={dispatch} passData={passData} clickedValue={clickedValue} key={"r"+i} rowIndex={i} rowData={tableData[i]} />	
 				})}
-			</tbody>
-		</table>
+			</div>
+		</div>
 	);
 };
 

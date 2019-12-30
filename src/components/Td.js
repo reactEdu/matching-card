@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { CLICK_CELL } from '../App';
 
-const Td = ({dispatch, pass, onClass, cellData, rowIndex, cellIndex}) => {
+const Td = ({isEnd, dispatch, pass, onClass, cellData, rowIndex, cellIndex}) => {
   
   const onClickTd = useCallback(() => {
     // console.log(pass, rowIndex, cellIndex, cellData);
@@ -9,10 +9,10 @@ const Td = ({dispatch, pass, onClass, cellData, rowIndex, cellIndex}) => {
   }, [cellData]);
 
   return (
-    <td onClick={onClickTd} className={onClass} className={pass ? 'pass' : ''} >
+    <div onClick={onClickTd} className={onClass} className={pass ? 'td pass' : 'td'} >
       <p>{cellData}</p>
-      {JSON.stringify(pass)}
-    </td>
+      {/* {JSON.stringify(pass)} */}
+    </div>
   );
 };
 

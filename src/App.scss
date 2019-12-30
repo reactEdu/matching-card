@@ -1,0 +1,25 @@
+table{border-spacing: 30px; border-collapse: separate;}
+.td{}
+
+
+$cardBackC: #000;
+$cardFrontC: #fff;
+
+$tb-bd-w : 1px; // tbody border weight
+.flex_table{
+  .tbody .tr{
+    display: flex;
+    justify-content: space-around;
+    &:first-child{margin: 30px 0;}
+    .td{width: 100px; height: 100px; background-color: $cardBackC; text-align: center; border: 1px solid $cardBackC;
+      // transition: all 0.3s ease-in-out;
+      p{opacity: 0;}
+    }
+    .pass{ animation:cardOn 2.5s forwards;    }
+    .pass p{opacity: 1; transition: all 1s;}
+  }
+}
+@keyframes cardOn {
+  15%{background-color: $cardFrontC; color: #111111;}
+  100% {transform:rotateY(180deg); background-color: $cardFrontC; color: #111111;}
+}
