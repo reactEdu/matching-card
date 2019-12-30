@@ -6,7 +6,7 @@ const Table = ({ dispatch, tableData, clickedValue, passData }) => {
 		<table>
 			<tbody>
 				{Array(tableData.length).fill().map((tr, i) => {
-					return <Tr dispatch={dispatch} passData={passData} clickedValue={clickedValue} rowIndex={i} rowData={tableData[i]} />	
+					return <Tr dispatch={dispatch} passData={passData} clickedValue={clickedValue} key={"r"+i} rowIndex={i} rowData={tableData[i]} />	
 				})}
 			</tbody>
 		</table>

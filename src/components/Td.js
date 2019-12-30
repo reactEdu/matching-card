@@ -9,8 +9,8 @@ const Td = ({dispatch, pass, onClass, cellData, rowIndex, cellIndex}) => {
   }, [cellData]);
 
   return (
-    <td onClick={onClickTd} className={onClass} >
-      {cellData}<br/>
+    <td onClick={onClickTd} className={onClass} className={pass ? 'pass' : ''} >
+      <p>{cellData}</p>
       {JSON.stringify(pass)}
     </td>
   );
