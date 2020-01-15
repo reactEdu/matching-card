@@ -2,7 +2,6 @@ import React, { useRef, useReducer, useCallback, useEffect } from 'react';
 import Table from './components/Table';
 import './App.scss';
 
-
 const initialState = {
   tableData: [
     ...shuffleCards()
@@ -18,6 +17,7 @@ const initialState = {
   count: 0,
 };
 
+let newState = initialState;
 
 // 4가지 알파벳 랜덤배치
 function shuffleCards() {
@@ -98,7 +98,7 @@ const reducer = (state, action) => {
         isEnd: true,
       }
     case RESTART_GAME:
-      // console.log("CHECK_END",  action.passData)
+      // console.log("RESTART_GAME",  state)
       return {
         tableData: [
           ...shuffleCards()
@@ -112,8 +112,7 @@ const reducer = (state, action) => {
         clickedValue: [-1, -1], // 클릭한 셀의 값
         isEnd: false,
         count: 0,
-      };
-  
+      }
     default:
       return state;
   }
