@@ -179,21 +179,20 @@ function App() {
   }, [clickedValue, passData])
 
   useEffect(() => {
-    console.table(state.tableData)
-  },[])
+    // 게임 새로 할때만 콘솔 찍기
+    if(state.count === 0) console.table(state.tableData)
+  },[isEnd])
 
   const onRestart = () => {
     dispatch({ type: RESTART_GAME});
   }
-
-  const pattern = /\],\[/g;
 
   return (
     <>
     <Table isEnd={isEnd} tableData={tableData} passData={passData} dispatch={dispatch} clickedValue={state.clickedValue}/>
     <p>시도 횟수: {Math.floor(state.count)}</p>
     <pre>
-      {/* {JSON.stringify(state.tableData).replace(pattern, '],\n[')}} */}
+      {/* {JSON.stringify(state.tableData).replace(/\],\[/g, '],\n[')}} */}
     </pre>
     {isEnd ? <button onClick={onRestart}>다시시작</button> : ''}
     </>
