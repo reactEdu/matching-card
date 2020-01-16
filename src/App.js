@@ -190,11 +190,12 @@ function App() {
   return (
     <>
     <Table isEnd={isEnd} tableData={tableData} passData={passData} dispatch={dispatch} clickedValue={state.clickedValue}/>
-    <p className="try_len">시도 횟수: {Math.floor(state.count)}</p>
+    <footer>
+      <p className="try_len">시도 횟수: {Math.floor(state.count)} {isEnd ? <button className="btn_restart" onClick={onRestart}>Restart</button> : ''}</p>
+    </footer>
     <pre>
       {/* {JSON.stringify(state.tableData).replace(/\],\[/g, '],\n[')}} */}
     </pre>
-    {isEnd ? <button onClick={onRestart}>다시시작</button> : ''}
     </>
   );
 }

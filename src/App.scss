@@ -79,7 +79,139 @@ $tb-bd-w : 1px; // tbody border weight
   font-size: 18px;
   font-weight: bold;
 }
+.btn_restart{
+  margin-left: 10px;
+  width: 100px;
+  height: 22px;
+  background: #ffb300;
+  font-weight: bold;
+  font-size: 14px;
+  color: #fff;
+  border-radius: 4px;
+}
 @keyframes cardOn {
   15%{background-color: $cardFrontC; color: #111111;}
   100% {transform:rotateY(360deg); background-color: $cardFrontC; color: #111111;}
+}
+
+.spinner{
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  background-color: #ffffff;
+  // background: rgba(0, 0, 0, 1);
+}
+svg {
+  display: block;
+  width: 500px;
+  max-width: 100%;
+  padding: calc(50vh - 167px) auto 0;
+}
+
+.letter {
+  fill: none;
+  stroke: #23C0F1;
+  stroke-width: 13px;
+  animation: draw 6s infinite ease-in-out;
+}
+@-webkit-keyframes draw {
+  20%, 90% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    stroke: #111;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes draw {
+  20%, 90% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    stroke: #111;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.letter:nth-child(3) {
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s;
+}
+.letter:nth-child(4) {
+  -webkit-animation-delay: 0.8s;
+          animation-delay: 0.8s;
+}
+.letter:nth-child(5) {
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+}
+.letter:nth-child(6) {
+  -webkit-animation-delay: 1.2s;
+          animation-delay: 1.2s;
+}
+.letter:nth-child(7) {
+  -webkit-animation-delay: 1.4s;
+          animation-delay: 1.4s;
+}
+.letter:nth-child(8) {
+  -webkit-animation-delay: 1.6s;
+          animation-delay: 1.6s;
+}
+.letter:nth-child(9) {
+  -webkit-animation-delay: 1.8s;
+          animation-delay: 1.8s;
+}
+.letter:nth-child(10) {
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+}
+.letter:nth-child(11) {
+  -webkit-animation-delay: 2.2s;
+          animation-delay: 2.2s;
+}
+.letter--s {
+  stroke-dasharray: 103;
+  stroke-dashoffset: 103;
+}
+.letter--u {
+  stroke-dasharray: 110;
+  stroke-dashoffset: 110;
+}
+.letter--p1-1 {
+  stroke-dasharray: 42;
+  stroke-dashoffset: 42;
+}
+.letter--p1-2 {
+  stroke-dasharray: 68;
+  stroke-dashoffset: 68;
+}
+.letter--p2-1 {
+  stroke-dasharray: 42;
+  stroke-dashoffset: 42;
+}
+.letter--p2-2 {
+  stroke-dasharray: 68;
+  stroke-dashoffset: 68;
+}
+.letter--l {
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+}
+.letter--e-1 {
+  stroke-dasharray: 37;
+  stroke-dashoffset: 37;
+}
+.letter--e-2 {
+  stroke-dasharray: 64;
+  stroke-dashoffset: 64;
+}
+.letter--e-3 {
+  stroke-dasharray: 16;
+  stroke-dashoffset: 16;
 }
