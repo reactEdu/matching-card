@@ -1,4 +1,4 @@
-#root{ height: 100vh;background-color: #4caf50;}
+#root{ min-height: 100vh;background-color: #4caf50;}
 *{margin: 0; padding: 0;}
 
 $cardBackC: #000;
@@ -6,10 +6,35 @@ $cardPattC: #fff;
 $cardFrontC: #fff;
 $tb-bd-w : 1px; // tbody border weight
 
+header{
+  font-family: 'Georgia', 'Times New Roman', 'serif';
+  margin-left: 10px;
+  padding-top: 10px;
+  .try_len{
+    color: #fff;
+    font-size: 18px;
+  }
+  .btn_restart{
+    margin-left: 15px;
+    width: 100px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    background: #F7D51D;
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    color: white;
+    box-shadow: inset -4px -4px 0px 0px #E59400;
+  }
+}
+
 .flex_table{
   max-width: 600px;
   margin: auto;
-  padding-top: 60px;
+  padding-top: 20px;
   .tbody .tr{
     display: flex;
     justify-content: space-around;
@@ -22,7 +47,10 @@ $tb-bd-w : 1px; // tbody border weight
       background-color: $cardBackC;
       background-image: linear-gradient(45deg, $cardPattC 40%, transparent 40%, transparent 70%, $cardPattC 70%, $cardPattC), linear-gradient(-45deg, $cardPattC 40%, transparent 40%, transparent 70%, $cardPattC 70%, $cardPattC);
       background-size: 25px 24px;
-
+      transition: all 0.2s;
+      &:active{
+        transform: scale(1.1);
+      }
       p{
         color: transparent;
         display: flex;
@@ -74,24 +102,17 @@ $tb-bd-w : 1px; // tbody border weight
     }
   }
 }
-.try_len{
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-}
-.btn_restart{
-  margin-left: 10px;
-  width: 100px;
-  height: 22px;
-  background: #ffb300;
-  font-weight: bold;
-  font-size: 14px;
-  color: #fff;
-  border-radius: 4px;
-}
+
 @keyframes cardOn {
   15%{background-color: $cardFrontC; color: #111111;}
   100% {transform:rotateY(360deg); background-color: $cardFrontC; color: #111111;}
+}
+
+@media screen and (max-width: 414px) {
+  .flex_table .tbody .tr .td{
+    width: 80px;
+    height: 120px;
+  }
 }
 
 .spinner{

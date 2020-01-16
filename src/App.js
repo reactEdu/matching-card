@@ -189,10 +189,10 @@ function App() {
 
   return (
     <>
+    <header>
+      <p className="try_len">Try: {Math.floor(state.count)} {isEnd ? <button className="btn_restart" onClick={onRestart}>Restart</button> : ''}</p>
+    </header>
     <Table isEnd={isEnd} tableData={tableData} passData={passData} dispatch={dispatch} clickedValue={state.clickedValue}/>
-    <footer>
-      <p className="try_len">시도 횟수: {Math.floor(state.count)} {isEnd ? <button className="btn_restart" onClick={onRestart}>Restart</button> : ''}</p>
-    </footer>
     <pre>
       {/* {JSON.stringify(state.tableData).replace(/\],\[/g, '],\n[')}} */}
     </pre>
