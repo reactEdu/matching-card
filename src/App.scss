@@ -7,6 +7,9 @@ $cardFrontC: #fff;
 $tb-bd-w : 1px; // tbody border weight
 
 .flex_table{
+  max-width: 600px;
+  margin: auto;
+  padding-top: 60px;
   .tbody .tr{
     display: flex;
     justify-content: space-around;
