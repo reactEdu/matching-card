@@ -190,7 +190,7 @@ function App() {
   return (
     <>
     <Table isEnd={isEnd} tableData={tableData} passData={passData} dispatch={dispatch} clickedValue={state.clickedValue}/>
-    <p>시도 횟수: {Math.floor(state.count)}</p>
+    <p className="try_len">시도 횟수: {Math.floor(state.count)}</p>
     <pre>
       {/* {JSON.stringify(state.tableData).replace(/\],\[/g, '],\n[')}} */}
     </pre>

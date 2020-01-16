@@ -7,10 +7,9 @@ const Td = ({isEnd, dispatch, pass, onClass, cellData, rowIndex, cellIndex}) => 
     // console.log(pass, rowIndex, cellIndex, cellData);
     dispatch({type: CLICK_CELL, row: rowIndex, cell: cellIndex});
   }, [cellData]);
-
   return (
     <div onClick={onClickTd} className={onClass} className={pass ? 'td pass' : 'td'} >
-      <p>{cellData}</p>
+      <p className={'ico_'+cellData}>{cellData}</p>
       {/* {JSON.stringify(pass)} */}
     </div>
   );
