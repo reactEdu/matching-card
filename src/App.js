@@ -1,6 +1,7 @@
-import React, { useRef, useReducer, useCallback, useEffect } from 'react';
+import React, { useRef, useReducer, useCallback, useEffect, useState } from 'react';
 import Table from './components/Table';
 import './App.scss';
+import axios from 'axios';
 
 const initialState = {
   tableData: [
@@ -132,6 +133,12 @@ function App() {
  
     // console.log(passData);
     if(checkIsEnd(passData)) {
+      // const config = {
+      //   headers: { "x-access-token": "token-value" },
+      // }
+      axios.post('http://localhost:3456/card/score', {
+        try: state.count
+      });
       dispatch({type: CHECK_END});
       alert("게임 끝났습니다");
       return;
@@ -178,10 +185,30 @@ function App() {
     }
   }, [clickedValue, passData])
 
+
+  const [avg, setAvg] = useState(0);
+  const [min, setMin] = useState(0);
+
+  const getScore = async () => {
+    try {
+      const result = await axios.get('http://localhost:3456/card/score');
+      // return result.data;
+      // console.log(result.data[0]);
+      setAvg(result.data[0].avg);
+      setMin(result.data[0].min)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     // 게임 새로 할때만 콘솔 찍기
-    if(state.count === 0) console.table(state.tableData)
-  },[isEnd])
+    if(state.count === 0) {
+      console.table(state.tableData);
+      getScore();
+      console.log(avg, min);
+    }
+  },[isEnd, setAvg, setMin])
 
   const onRestart = () => {
     dispatch({ type: RESTART_GAME});
@@ -190,7 +217,12 @@ function App() {
   return (
     <>
     <header>
-      <p className="try_len">Try: {Math.floor(state.count)} {isEnd ? <button className="btn_restart" onClick={onRestart}>Restart</button> : ''}</p>
+    <p className="try_len">
+      <span className="get_score try">Your Try: {Math.floor(state.count)}<br/></span>
+      {avg > 0 ? <span className="get_score avg">Users average: {avg}<br/></span> : null}
+      {min > 0 ? <span className="get_score min">Users best: {min}<br/></span> : null}
+      {isEnd ? <button className="btn_restart" onClick={onRestart}>Restart</button> : ''}
+    </p>
     </header>
     <Table isEnd={isEnd} tableData={tableData} passData={passData} dispatch={dispatch} clickedValue={state.clickedValue}/>
     <pre>
