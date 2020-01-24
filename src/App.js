@@ -1,7 +1,7 @@
 import React, { useRef, useReducer, useCallback, useEffect, useState } from 'react';
 import Table from './components/Table';
 import './App.scss';
-import axios from 'axios';
+import axios from './axiosConfig';
 
 const initialState = {
   tableData: [
@@ -136,7 +136,7 @@ function App() {
       // const config = {
       //   headers: { "x-access-token": "token-value" },
       // }
-      axios.post('http://localhost:3456/card/score', {
+      axios.post('/card/score', {
         try: state.count
       });
       dispatch({type: CHECK_END});
@@ -191,7 +191,7 @@ function App() {
 
   const getScore = async () => {
     try {
-      const result = await axios.get('http://localhost:3456/card/score');
+      const result = await axios.get('/card/score');
       // return result.data;
       // console.log(result.data[0]);
       setAvg(result.data[0].avg);
@@ -204,9 +204,9 @@ function App() {
   useEffect(() => {
     // 게임 새로 할때만 콘솔 찍기
     if(state.count === 0) {
-      console.table(state.tableData);
+      // console.table(state.tableData);
       getScore();
-      console.log(avg, min);
+      // console.log(avg, min);
     }
   },[isEnd, setAvg, setMin])
 

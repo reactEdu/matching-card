@@ -5,7 +5,7 @@ const Root = () => {
   const spinnerRef = useRef()
   useEffect(() => {
     setTimeout(() =>{
-      console.log("dom loaded", spinnerRef.current);
+      // console.log("dom loaded", spinnerRef.current);
       spinnerRef.current.style.display="none";
       document.querySelector('body').style.position="static";
     },3000)
