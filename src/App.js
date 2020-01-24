@@ -39,7 +39,6 @@ function shuffleCards() {
     result[1][i] = tempF;
   }
 
-  // console.log(result);
   return result;
 }
 
@@ -201,9 +200,8 @@ function App() {
   useEffect(() => {
     // 게임 새로 할때만 콘솔 찍기
     if(state.count === 0) {
-      console.table(state.tableData);
+      // console.table(state.tableData);
       getScore();
-      // console.log(avg, min);
     }
   },[isEnd, setAvg, setMin])
 
