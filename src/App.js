@@ -1,4 +1,4 @@
-import React, { useRef, useReducer, useCallback, useEffect, useState } from 'react';
+import React, { useRef, useReducer, useEffect, useState } from 'react';
 import Table from './components/Table';
 import './App.scss';
 import axios from './axiosConfig';
@@ -16,9 +16,8 @@ const initialState = {
   clickedValue: [-1, -1], // 클릭한 셀의 값
   isEnd: false,
   count: 0,
+  remainder: 7,
 };
-
-let newState = initialState;
 
 // 4가지 알파벳 랜덤배치
 function shuffleCards() {
@@ -58,6 +57,7 @@ function checkIsEnd(passData){
     passData[0].indexOf(false) === -1 
     && passData[1].indexOf(false) === -1
     && passData[2].indexOf(false) === -1
+    && passData[3].indexOf(false) === -1
   ) result = true;
 
   return result;
@@ -83,14 +83,16 @@ const reducer = (state, action) => {
       return {
         ...state,
         ...state.passData[action.bRow][action.bCell]=true,
-        ...state.passData[action.aRow][action.aCell]=true
+        ...state.passData[action.aRow][action.aCell]=true,
+        remainder: state.remainder-1,
       }
     case CHOICE_NO:
       // console.log("CHOICE_NO", action)
       return {
         ...state,
         ...state.passData[action.bRow][action.bCell]=false,
-        ...state.passData[action.aRow][action.aCell]=false
+        ...state.passData[action.aRow][action.aCell]=false,
+        remainder: state.remainder+1,
       }
     case CHECK_END:
       // console.log("CHECK_END",  action.passData)
@@ -130,19 +132,6 @@ function App() {
   useEffect(() => {
     if(!mounted.current) mounted.current = true;
     const [ row, cell ] = clickedValue;
- 
-    // console.log(passData);
-    if(checkIsEnd(passData)) {
-      // const config = {
-      //   headers: { "x-access-token": "token-value" },
-      // }
-      axios.post('/card/score', {
-        try: state.count
-      });
-      dispatch({type: CHECK_END});
-      alert("게임 끝났습니다");
-      return;
-    }
 
     if(row !== -1){
       // console.log('['+row, cell+']', tableData[row][cell])
@@ -154,29 +143,39 @@ function App() {
       } else {
         // console.log("idx ",fIdx.current, row, cell)
         if(fIdx.current[0] === row && fIdx.current[1] === cell) {
-          alert("같은 칸 클릭했습니다.")
+          alert("같은 칸 클릭했습니다. \n You clicked same cell.")
           fVal.current = [];
           fVal.current = '';
           return;
         }
 
-        if(fVal.current === tableData[row][cell]) {
+        if(fVal.current === tableData[row][cell]) { // 맞춘 경우
           dispatch({ type: CHOICE_OK, bRow:fIdx.current[0], bCell:fIdx.current[1], aRow:row, aCell: cell});
-          // alert('맞췄다');
           
-        } else {
+          // console.log(state.remainder);
+          if(state.remainder === 0) {
+            axios.post('/card/score', {
+              try: state.count
+            });
+            setTimeout(()=> {
+              dispatch({type: CHECK_END});
+              alert("GAME Clear!! \n If you want to play more, click 'Restart'");
+            },900);
+            return;
+          }
+
+        } else { // 틀린 경우
           let br = fIdx.current[0];
           let bc = fIdx.current[1];
           dispatch({ type: CHOICE_OK, bRow:br, bCell:bc, aRow:row, aCell: cell});
-          // alert('틀렸다');
+          
           setTimeout(()=>{
             dispatch({ type: CHOICE_NO, bRow:br, bCell:bc, aRow:row, aCell: cell })
           }, 900)
-          // console.log('틀렸다',fVal.current, fIdx.current[0], fIdx.current[1], row, cell);
         }
         fVal.current = '';
         fIdx.current = [];
-        
+
         return;
       }
 
@@ -192,8 +191,6 @@ function App() {
   const getScore = async () => {
     try {
       const result = await axios.get('/card/score');
-      // return result.data;
-      // console.log(result.data[0]);
       setAvg(result.data[0].avg);
       setMin(result.data[0].min)
     } catch (error) {
@@ -204,7 +201,7 @@ function App() {
   useEffect(() => {
     // 게임 새로 할때만 콘솔 찍기
     if(state.count === 0) {
-      // console.table(state.tableData);
+      console.table(state.tableData);
       getScore();
       // console.log(avg, min);
     }
