@@ -153,12 +153,14 @@ function App() {
           
           // console.log(state.remainder);
           if(state.remainder === 0) {
-            axios.post('/card/score', {
-              try: state.count
-            });
             setTimeout(()=> {
               dispatch({type: CHECK_END});
-              alert("GAME Clear!! \n If you want to play more, click 'Restart'");
+              let nickname = prompt('GAME Clear!! \n please write your nickname');
+              if(nickname.trim() === "") nickname = '';
+              axios.post('/card/score', {
+                try: state.count,
+                nickname,
+              });
             },900);
             return;
           }
@@ -186,12 +188,14 @@ function App() {
 
   const [avg, setAvg] = useState(0);
   const [min, setMin] = useState(0);
+  const [nick, setNick] = useState('');
 
   const getScore = async () => {
     try {
       const result = await axios.get('/card/score');
       setAvg(result.data[0].avg);
-      setMin(result.data[0].min)
+      setMin(result.data[0].min);
+      setNick(result.data[0].nickname);
     } catch (error) {
       console.log(error)
     }
@@ -202,8 +206,9 @@ function App() {
     if(state.count === 0) {
       // console.table(state.tableData);
       getScore();
+      
     }
-  },[isEnd, setAvg, setMin])
+  },[isEnd, setAvg, setMin, setNick]);
 
   const onRestart = () => {
     dispatch({ type: RESTART_GAME});
@@ -215,7 +220,7 @@ function App() {
     <p className="try_len">
       <span className="get_score try">Your Try: {Math.floor(state.count)}<br/></span>
       {avg > 0 ? <span className="get_score avg">Users average: {avg}<br/></span> : null}
-      {min > 0 ? <span className="get_score min">Users best: {min}<br/></span> : null}
+      {min > 0 ? <span className="get_score min">Users best: {min} of {nick}<br/></span> : null}
       {isEnd ? <button className="btn_restart" onClick={onRestart}>Restart</button> : ''}
     </p>
     </header>
